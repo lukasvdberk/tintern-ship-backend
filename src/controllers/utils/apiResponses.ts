@@ -6,7 +6,7 @@ export class ApiResponse {
      * @param {Object} errorMessage - The error message.
      * @param {ExpressRes} res - A valid express response object to send the response with.
      */
-    static errorResponse (statusCode, errorMessage, res) {
+    static sendErrorResponse (statusCode, errorMessage, res) {
         return res.status(statusCode).json({
             errorMessage: errorMessage
         })
@@ -18,7 +18,7 @@ export class ApiResponse {
      * @param {Object|String} content - Extra content you want to send. Can be anything from a object to a string
      * @param {ExpressRes} res - A valid express response object to send the response with.
      */
-    static successResponse (content, res) {
+    static sendSuccessResponse (content, res) {
         return res.status(200).json(content)
     }
 }

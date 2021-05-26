@@ -13,8 +13,11 @@ export class AuthorizationUtil {
      * @param {boolean} isAdmin - Wheather the user is admin or not
      * @returns {string} - The generated jwt token
      */
-    static createJWT(userId, email, isAdmin): string {
-        return jwt.sign({userId, email: email, isAdmin}, this.getJWTKey(), {
+    static createJWT(userId: string, email: string): string {
+        return jwt.sign({
+            userId: userId,
+            email: email
+        }, this.getJWTKey(), {
             algorithm: 'HS256'
         })
     }
