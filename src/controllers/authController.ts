@@ -3,18 +3,21 @@ import {MissingUserInformation} from "./excpetions/MissingUserInformation";
 import {User} from "../models/user.model";
 import {PasswordUtil} from "./utils/passwordUtil";
 import {AuthorizationUtil} from "./utils/authorizationUtil";
-
-interface User {
-    email: string
-    password: string
-}
+import {CreateUserDTO} from "../dto/user/createUserDTO";
 
 export class AuthController {
+    /**
+     * Register endpoint
+     * @param req
+     * @param res
+     * @param next
+     */
     static async register(req, res, next) {
         try {
             // TODO add jsdoc
             // TODO add swagger doc
-            const user = AuthController.extractUserInformationFromRequest(req, res);
+            const user = req.body as CreateUserDTO;
+
             const existingUser = await User.findOne({
                 email: user.email
             })
@@ -43,9 +46,15 @@ export class AuthController {
         }
     }
 
+    /**
+     * Login endpoint
+     * @param req
+     * @param res
+     * @param next
+     */
     static async login(req, res, next) {
         try {
-            const user = AuthController.extractUserInformationFromRequest(req, res);
+            const user = req.body as CreateUserDTO;
 
             // TODO parse to right model or something.
             const existingUser = (await User.findOne({
@@ -71,17 +80,17 @@ export class AuthController {
             return ApiResponse.sendErrorResponse(500, 'An error occurred on the server.', res)
         }
     }
-
-    private static extractUserInformationFromRequest(req, res): User {
-        // TODO check valid email and password requirements
-        const email: string = req.body.email
-        const password: string = req.body.password
-
-        if(!email || !password) throw new MissingUserInformation('Missing password or username')
-        return  {
-            email,
-            password
-        }
-    }
+    //
+    // private static extractUserInformationFromRequest(req, res): User {
+    //     // TODO check valid email and password requirements
+    //     const email: string = req.body.email
+    //     const password: string = req.body.password
+    //
+    //     if(!email || !password) throw new MissingUserInformation('Missing password or username')
+    //     return  {
+    //         email,
+    //         password
+    //     }
+    // }
 
 }
