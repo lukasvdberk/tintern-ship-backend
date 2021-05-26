@@ -1,0 +1,22 @@
+{
+  "name": "tintern-ship-backend",
+  "version": "1.0.0",
+  "description": "Tinder for your next internship backend",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasvdberk/tintern-ship-backend.git"
+  },
+  "author": "Lukas van den Berk, Nils van der Velden",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukasvdberk/tintern-ship-backend/issues"
+  },
+  "homepage": "https://github.com/lukasvdberk/tintern-ship-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
