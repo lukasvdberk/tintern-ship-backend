@@ -1,15 +1,12 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
+import {routesManager} from "./routes/routesManager";
 
 dotenv.config()
 
-const index = express();
+const app = express();
 const port = process.env.PORT || 8080;
 
-index.get( "/", (req, res ) => {
-    res.send( "Hello world!" );
-} );
+app.use(routesManager)
 
-index.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
-} );
+app.listen(port);
