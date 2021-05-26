@@ -1,7 +1,7 @@
-import * as express from 'express';
+import * as express from "express";
 
-const userRouter = express.Router()
-userRouter.get('/users/me')
-userRouter.post('/users/')
+const userRouter = express.Router();
+userRouter.get("/users/me");
+userRouter.post("/users/");
 
-export { userRouter }
+export { userRouter };

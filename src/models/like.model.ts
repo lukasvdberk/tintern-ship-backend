@@ -1,15 +1,15 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 const likeSchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true
+    required: true,
   },
   hasLiked: {
     type: Boolean,
-    required: true
+    required: true,
   },
-})
+});
 
-const Like = mongoose.model('Like', likeSchema)
-export { Like }
+const Like = mongoose.model("Like", likeSchema);
+export { Like };

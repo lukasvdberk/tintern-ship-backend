@@ -1,31 +1,31 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 const internSchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true
+    required: true,
   },
   educationId: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   age: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const Intern = mongoose.model('Intern', internSchema)
-export { Intern }
+const Intern = mongoose.model("Intern", internSchema);
+export { Intern };

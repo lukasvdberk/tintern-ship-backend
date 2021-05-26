@@ -1,6 +1,6 @@
-import * as express from 'express';
+import * as express from "express";
 
-const matchesRoutes = express.Router()
-matchesRoutes.get('/matches/user/:userId')
+const matchesRoutes = express.Router();
+matchesRoutes.get("/matches/user/:userId");
 
-export { matchesRoutes }
+export { matchesRoutes };
