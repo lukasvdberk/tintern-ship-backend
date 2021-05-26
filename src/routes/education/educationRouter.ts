@@ -1,6 +1,6 @@
-import * as express from 'express';
+import * as express from "express";
 
-const educationRouter = express.Router()
-educationRouter.get('/educations')
+const educationRouter = express.Router();
+educationRouter.get("/educations");
 
-export { educationRouter }
+export { educationRouter };

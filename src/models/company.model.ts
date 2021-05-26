@@ -1,19 +1,19 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 const companySchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true
+    required: true,
   },
-})
+});
 
-const Company = mongoose.model('Company', companySchema)
-export { Company }
+const Company = mongoose.model("Company", companySchema);
+export { Company };

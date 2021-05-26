@@ -1,29 +1,33 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  matches: [ {
-    type: Object,
-    require: true,
-    unique: false
-  }],
-  likes: [ {
-    type: Object,
-    require: true,
-    unique: false
-  }],
+  matches: [
+    {
+      type: Object,
+      require: true,
+      unique: false,
+    },
+  ],
+  likes: [
+    {
+      type: Object,
+      require: true,
+      unique: false,
+    },
+  ],
   email: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   avatarUrl: {
     type: String,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 
-const User = mongoose.model('User', userSchema)
-export { User }
+const User = mongoose.model("User", userSchema);
+export { User };

@@ -1,11 +1,14 @@
-import * as mongoose from 'mongoose';
+import * as mongoose from "mongoose";
 
-const fireBaseDeviceKeySchema= new mongoose.Schema({
+const fireBaseDeviceKeySchema = new mongoose.Schema({
   deviceKey: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const fireBaseDeviceKey = mongoose.model('fireBaseDeviceKey', fireBaseDeviceKeySchema)
-export { fireBaseDeviceKey }
+const fireBaseDeviceKey = mongoose.model(
+  "fireBaseDeviceKey",
+  fireBaseDeviceKeySchema
+);
+export { fireBaseDeviceKey };
