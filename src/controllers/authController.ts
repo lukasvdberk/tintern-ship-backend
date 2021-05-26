@@ -1,38 +1,68 @@
 import {ApiResponse} from "./utils/apiResponses";
 import {MissingUserInformation} from "./excpetions/MissingUserInformation";
+import {User} from "../models/user.model";
+import {PasswordUtil} from "./utils/passwordUtil";
+import {AuthorizationUtil} from "./utils/authorizationUtil";
+import {CreateUserDTO} from "../dto/user/createUserDTO";
+import {UserDTO} from "../dto/user/userDTO";
 
 export class AuthController {
+    /**
+     * Register endpoint
+     * @param req
+     * @param res
+     * @param next
+     */
     static async register(req, res, next) {
-        try {
-            const user = this.extractUserInformationFromRequest(req, res);
+``        // TODO add swagger doc
+        const user = req.body as CreateUserDTO;
 
+        const existingUser = await User.findOne({
+            email: user.email
+        })
 
-        } catch (exception) {
-            if (exception instanceof MissingUserInformation) {
-                return ApiResponse.sendErrorResponse(404, exception.message, res)
-            }
+        if(existingUser) {
+            return ApiResponse.sendErrorResponse(403, 'User already exists', res)
         }
+
+        const userDocument = new User({
+            email: user.email,
+            password: await PasswordUtil.hashPassword(user.password),
+        })
+        await userDocument.save()
+
+        // for authentication
+        const jwtToken = await AuthorizationUtil.createJWT(userDocument._id, user.email)
+
+        return ApiResponse.sendSuccessResponse({
+            token: jwtToken
+        }, res)
     }
 
+    /**
+     * Login endpoint
+     * @param req
+     * @param res
+     * @param next
+     */
     static async login(req, res, next) {
-        try {
-            const user = this.extractUserInformationFromRequest(req, res);
-        } catch (exception) {
-            if (exception instanceof MissingUserInformation) {
-                return ApiResponse.sendErrorResponse(404, exception.message, res)
+        const user = req.body as CreateUserDTO;
+
+        // TODO parse to right model or something.
+        const existingUser = (await User.findOne({
+            email: user.email
+        }))
+
+        if(existingUser) {
+            // validate password
+            // @ts-ignore
+            if(await PasswordUtil.validPassword(user.password, existingUser.password)) {
+                const jwtToken = await AuthorizationUtil.createJWT(existingUser._id, user.email)
+                return ApiResponse.sendSuccessResponse({
+                    token: jwtToken
+                }, res)
             }
         }
+        return ApiResponse.sendErrorResponse(404, 'No valid credentials given for user', res)
     }
-
-    private static extractUserInformationFromRequest(req, res): { email: string, password: string } {
-        const email = req.body.email
-        const password = req.body.password
-
-        if(!email || !password) throw new MissingUserInformation('Missing password or username')
-        return  {
-            email,
-            password
-        }
-    }
-
 }

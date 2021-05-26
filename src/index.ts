@@ -3,8 +3,10 @@ import * as dotenv from 'dotenv';
 import {routesManager} from "./routes/routesManager";
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
-
+import * as morgan from 'morgan'
 dotenv.config()
+// http request logger
+morgan('tiny')
 
 const app = express();
 
@@ -30,6 +32,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(routesManager)
+app.use('', routesManager)
 
 app.listen(port);

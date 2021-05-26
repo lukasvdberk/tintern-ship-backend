@@ -12,7 +12,7 @@ export class PasswordUtil {
         const randomLength = Math.random() * 16
         const salt = bcrypt.genSaltSync(randomLength)
 
-        return bcrypt.hash(password, salt)
+        return await bcrypt.hash(password, salt)
     }
 
     /**

@@ -1,9 +1,12 @@
 import * as express from 'express';
-import {AuthorizationUtil} from "../../controllers/utils/authorizationUtil";
 import {AuthController} from "../../controllers/authController";
+import {dtoValidationMiddleware} from "../../dto/util/dtoBodyChecker";
+import {CreateUserDTO} from "../../dto/user/createUserDTO";
 
 const authRouter = express.Router()
-authRouter.post('/auth/login', AuthController.login)
-authRouter.post('/auth/register', AuthController.register)
+
+
+authRouter.post('/auth/login', dtoValidationMiddleware(CreateUserDTO), AuthController.login)
+authRouter.post('/auth/register', dtoValidationMiddleware(CreateUserDTO), AuthController.register)
 
 export { authRouter }
