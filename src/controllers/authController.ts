@@ -12,7 +12,7 @@ export class AuthController {
      * @param next
      */
     static async register(req, res, next) {
-``        // TODO add swagger doc
+        // TODO add swagger doc
         const user = req.body as CreateUserDTO;
 
         const existingUser = await User.findOne({
@@ -47,9 +47,9 @@ export class AuthController {
         const user = req.body as CreateUserDTO;
 
         // TODO parse to right model or something.
-        const existingUser = (await User.findOne({
+        const existingUser = await User.findOne({
             email: user.email
-        }))
+        })
 
         if(existingUser) {
             // validate password
