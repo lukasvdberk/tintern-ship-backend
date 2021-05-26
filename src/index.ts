@@ -1,11 +1,14 @@
 import * as express from 'express';
 import * as dotenv from 'dotenv';
+import {routesManager} from "./routes/routesManager";
 import * as json from 'body-parser';
 import * as mongoose from 'mongoose';
 
 dotenv.config()
 
-const index = express();
+const app = express();
+
+const port = process.env.PORT || 8080;
 
 mongoose.connect('mongodb+srv://dev:cutiexx@cluster0.o4y0u.mongodb.net/myFirstDatabase', {
     useCreateIndex: true,
@@ -16,9 +19,9 @@ mongoose.connect('mongodb+srv://dev:cutiexx@cluster0.o4y0u.mongodb.net/myFirstDa
 });
 
 
-index.use(json())
+app.use(json())
 
-index.use((req, res, next) => {
+app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -26,12 +29,6 @@ index.use((req, res, next) => {
     next();
 });
 
-const port = process.env.PORT || 8080;
+app.use(routesManager)
 
-index.get( "/", (req, res ) => {
-    res.send( "Hello world!" );
-} );
-
-index.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
-} );
+app.listen(port);
