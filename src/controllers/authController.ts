@@ -1,10 +1,8 @@
 import {ApiResponse} from "./utils/apiResponses";
-import {MissingUserInformation} from "./excpetions/MissingUserInformation";
 import {User} from "../models/user.model";
 import {PasswordUtil} from "./utils/passwordUtil";
 import {AuthorizationUtil} from "./utils/authorizationUtil";
 import {CreateUserDTO} from "../dto/user/createUserDTO";
-import {UserDTO} from "../dto/user/userDTO";
 
 export class AuthController {
     /**
