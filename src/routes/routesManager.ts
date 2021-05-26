@@ -13,7 +13,6 @@ routesManager.use(educationRouter)
 routesManager.use(internRouter)
 routesManager.use(likesRouter)
 routesManager.use(matchesRoutes)
-routesManager.use(userRouter)
 routesManager.use(authRouter)
 
 export { routesManager }
