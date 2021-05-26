@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema({
     require: true,
     unique: false
   }],
+  likes: [ {
+    type: Object,
+    require: true,
+    unique: false
+  }],
   email: {
     type: String,
     required: true
