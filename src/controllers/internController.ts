@@ -37,8 +37,6 @@ export class InternController {
       phoneNumber: req.body.phoneNumber
     });
 
-    // console.log(internDocument)
-
     Intern.updateOne({_id: internId}, internDocument).then(result => {
       if(result) {
         return ApiResponse.sendSuccessResponse(internDocument ,res)
