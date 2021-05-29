@@ -1,5 +1,10 @@
 export class UserDTO {
   public _id: string;
   public email: string;
-  public password: string;
+
+
+  constructor(id: string, email: string) {
+    this._id = id;
+    this.email = email;
+  }
 }
