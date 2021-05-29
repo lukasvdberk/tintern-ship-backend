@@ -23,7 +23,8 @@ export class CompanyController {
   }
 
   static async editCompany(req, res, next) {
-    const userId = req.user_id;
+    const userId = req.user._id;
+    console.log(userId)
     const company = Company.findOne({userId:userId})
     const companyId = (await company)._id
 

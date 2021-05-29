@@ -13,13 +13,23 @@ companyRouter.post(
 );
 
 companyRouter.put(
-  "/companies/:companyId",
+  "/companies/user/:userId",
   dtoValidationMiddleware(CreateCompanyDTO),
   AuthorizationMiddleware.isAuthenticated,
   CompanyController.editCompany
 );
 
-companyRouter.get("/companies/user/:userId");
+companyRouter.delete(
+  "/companies/user/:userId",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.deleteCompany
+);
+
+companyRouter.get(
+  "/companies/user/:userId",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getCompany
+  );
 
 
 export { companyRouter };
