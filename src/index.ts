@@ -4,6 +4,9 @@ import { routesManager } from "./routes/routesManager";
 import * as mongoose from "mongoose";
 import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
+import * as fileUpload from "express-fileupload";
+import * as path from "path";
+
 dotenv.config();
 // http request logger
 morgan("tiny");
@@ -27,6 +30,12 @@ mongoose.connect(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/json" }));
+// enable files upload
+app.use(fileUpload({
+    createParentPath: true
+}));
+
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
