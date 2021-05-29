@@ -23,9 +23,13 @@ export class InternController {
   }
 
   static async editIntern(req, res, next) {
+    const userId = req.user._id;
+    const intern = Intern.findOne({userId:userId})
+    const internId = (await intern)._id
 
     const internDocument = new Intern({
-      _id: req.body._id,
+      _id: internId,
+      userId: userId,
       educationId: req.body.educationId,
       name: req.body.name,
       age: req.body.age,
@@ -33,7 +37,7 @@ export class InternController {
       phoneNumber: req.body.phoneNumber
     });
 
-    await internDocument.updateOne({ _id: req.params._id });
+    await internDocument.updateOne({ _id: internId });
 
     return ApiResponse.sendSuccessResponse(internDocument ,res)
   }
