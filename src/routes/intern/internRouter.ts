@@ -26,7 +26,10 @@ internRouter.delete(
 );
 
 
-
-internRouter.get("/interns/:userId");
+internRouter.get(
+  "/interns/user/:userId",
+  AuthorizationMiddleware.isAuthenticated,
+  InternController.getIntern
+);
 
 export { internRouter };

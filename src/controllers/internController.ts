@@ -53,11 +53,13 @@ export class InternController {
   }
 
   static async getIntern(req, res, next) {
-    const internId = req.params.id;
+    const userId = req.user._id;
+    const intern = Intern.findOne({userId:userId})
+    const internId = (await intern)._id
 
     await Intern.findById(internId).then(intern => {
       if (intern) {
-        return ApiResponse.sendSuccessResponse(internId, res)
+        return ApiResponse.sendSuccessResponse(intern, res)
       } else {
         return ApiResponse.sendErrorResponse(403, 'Intern not found', res)
       }
