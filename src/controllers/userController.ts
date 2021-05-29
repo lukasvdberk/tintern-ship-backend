@@ -36,7 +36,7 @@ export class UserController {
             if(!imageFile) return ApiResponse.sendErrorResponse(404, 'Na avatar image uploaded', res)
 
             const fileExtension: string = imageFile.name.split('.').pop();
-            const avatarFileName: string = `./media/avatars/${userId}.${ fileExtension}`
+            const avatarFileName: string = `./public/media/avatars/${userId}.${ fileExtension}`
 
             // moves file and saves in directory
             await imageFile.mv(avatarFileName);
@@ -56,7 +56,6 @@ export class UserController {
                 message: 'saved'
             }, res)
         } catch (ignored) {
-            console.log(ignored)
             return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
         }
     }
