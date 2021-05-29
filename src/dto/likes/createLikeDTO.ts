@@ -1,7 +1,7 @@
 import {IsBoolean, IsString} from "class-validator";
 import {Trim} from "class-sanitizer";
 
-export class LikesDTO{
+export class CreateLikesDTO{
     @IsString()
     public fromUser?: string;
 
