@@ -25,15 +25,15 @@ export class InternController {
   static async editIntern(req, res, next) {
 
     const internDocument = new Intern({
-      _id: req.body.id,
+      _id: req.body._id,
       educationId: req.body.educationId,
       name: req.body.name,
       age: req.body.age,
       description: req.body.description,
       phoneNumber: req.body.phoneNumber
     });
-    
-    await internDocument.updateOne({ _id: req.params.id });
+
+    await internDocument.updateOne({ _id: req.params._id });
 
     return ApiResponse.sendSuccessResponse(internDocument ,res)
   }
