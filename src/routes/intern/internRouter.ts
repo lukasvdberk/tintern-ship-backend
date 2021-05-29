@@ -12,9 +12,16 @@ internRouter.post(
   InternController.createIntern
 );
 
+internRouter.put(
+  "/interns/user/:userId",
+  dtoValidationMiddleware(CreateInternDTO),
+  AuthorizationMiddleware.isAuthenticated,
+  InternController.editIntern
+);
+
+
 
 internRouter.get("/interns/:userId");
-internRouter.put("/interns/:internId");
 internRouter.delete("/interns/:internId")
 
 export { internRouter };

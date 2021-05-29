@@ -32,6 +32,7 @@ export class InternController {
       description: req.body.description,
       phoneNumber: req.body.phoneNumber
     });
+    
     await internDocument.updateOne({ _id: req.params.id });
 
     return ApiResponse.sendSuccessResponse(internDocument ,res)
