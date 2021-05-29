@@ -2,9 +2,6 @@ import { Trim } from "class-sanitizer";
 import { IsString, MaxLength, MinLength } from "class-validator";
 
 export class CreateInternDTO {
-  @IsString()
-  @Trim()
-  public userId?: string;
 
   @IsString()
   @Trim()
