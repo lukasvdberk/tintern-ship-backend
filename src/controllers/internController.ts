@@ -1,5 +1,5 @@
-import { InternDTO } from "src/dto/intern/internDTO";
-import { Intern } from "src/models/intern.model";
+import { InternDTO } from "../dto/intern/internDTO";
+import { Intern } from "../models/intern.model";
 import { ApiResponse } from "./utils/apiResponses";
 
 export class InternController {
@@ -41,5 +41,17 @@ export class InternController {
     await Intern.deleteOne({_id: internId})
     
     return ApiResponse.sendSuccessResponse(internId, res)
+  }
+
+  static async getIntern(req, res, next) {
+    const internId = req.params.id;
+
+    await Intern.findById(internId).then(intern => {
+      if (intern) {
+        return ApiResponse.sendSuccessResponse(internId, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Intern not found', res)
+      }
+    })
   }
 }
