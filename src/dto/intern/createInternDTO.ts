@@ -20,8 +20,8 @@ export class CreateInternDTO {
   public description?: string;
 
   @IsString()
-  @MinLength(9, { message: 'Age shoud be a minimum of 9 characters'})
-  @MaxLength(9, { message: 'Age shoud be a maximum of 9 characters'})
+  @MinLength(8, { message: 'Age shoud be a minimum of 9 characters'})
+  @MaxLength(10, { message: 'Age shoud be a maximum of 9 characters'})
   public phoneNumber?: string;
 
 }

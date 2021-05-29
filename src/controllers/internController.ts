@@ -4,10 +4,12 @@ import { ApiResponse } from "./utils/apiResponses";
 
 export class InternController {
   static async createIntern(req, res, next) {
-
+    const userId = req.user._id;
+    // console.log(userId)
     const intern = req.body as InternDTO;
   
     const internDocument = new Intern({
+      userId: userId,
       educationId: intern.educationId,
       name: intern.name,
       age: intern.age,
