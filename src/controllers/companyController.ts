@@ -44,5 +44,27 @@ export class CompanyController {
     })
   }
 
-  static async
+  static async deleteCompany(req, res, next) {
+    const userId = req.user._id;
+    const company = Company.findOne({userId:userId})
+    const companyId = (await company)._id
+
+    await Company.deleteOne({_id: companyId})
+    
+    return ApiResponse.sendSuccessResponse(companyId, res)
+  }
+
+  static async getCompany(req, res, next) {
+    const userId = req.user._id;
+    const company = Company.findOne({userId:userId})
+    const companyId = (await company)._id
+
+    await Company.findById(companyId).then(company => {
+      if (company) {
+        return ApiResponse.sendSuccessResponse(company, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Company not found', res)
+      }
+    })
+  }
 }
