@@ -1,7 +1,11 @@
 import * as mongoose from "mongoose";
 
 const likeSchema = new mongoose.Schema({
-  userId: {
+  fromUserId: {
+    type: String,
+    required: true,
+  },
+  toUserId: {
     type: String,
     required: true,
   },
