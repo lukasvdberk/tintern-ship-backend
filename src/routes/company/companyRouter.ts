@@ -12,7 +12,14 @@ companyRouter.post(
   CompanyController.createCompany
 );
 
+companyRouter.put(
+  "/companies/:companyId",
+  dtoValidationMiddleware(CreateCompanyDTO),
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.editCompany
+);
+
 companyRouter.get("/companies/user/:userId");
-companyRouter.put("/companies/:companyId");
+
 
 export { companyRouter };

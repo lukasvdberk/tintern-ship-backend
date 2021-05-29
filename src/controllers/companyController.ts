@@ -21,4 +21,28 @@ export class CompanyController {
   
     return ApiResponse.sendSuccessResponse(companyDocument, res);
   }
+
+  static async editCompany(req, res, next) {
+    const userId = req.user_id;
+    const company = Company.findOne({userId:userId})
+    const companyId = (await company)._id
+
+    const companyDocument = new Company({
+      _id: companyId,
+      userId: userId,
+      name: req.body.name,
+      description: req.body.description,
+      phoneNumber: req.body.phoneNumber
+    });
+
+    Company.updateOne({_id: companyId}, companyDocument).then(result => {
+      if(result) {
+        return ApiResponse.sendSuccessResponse(companyDocument, res)
+      } else { 
+        return ApiResponse.sendErrorResponse(403, 'Could not update company', res)
+      }
+    })
+  }
+
+  static async
 }
