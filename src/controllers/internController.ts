@@ -37,9 +37,15 @@ export class InternController {
       phoneNumber: req.body.phoneNumber
     });
 
-    await internDocument.updateOne({ _id: internId });
+    // console.log(internDocument)
 
-    return ApiResponse.sendSuccessResponse(internDocument ,res)
+    Intern.updateOne({_id: internId}, internDocument).then(result => {
+      if(result) {
+        return ApiResponse.sendSuccessResponse(internDocument ,res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Could not update intern', res)
+      }
+    })
   }
 
   static async deleteIntern(req, res, next) {
