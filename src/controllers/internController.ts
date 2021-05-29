@@ -17,12 +17,7 @@ export class InternController {
 
     await internDocument.save();
   
-    return ApiResponse.sendSuccessResponse(
-      {
-        intern: internDocument
-      }
-      ,res
-    );
+    return ApiResponse.sendSuccessResponse(internDocument, res);
   }
 
   static async editIntern(req, res, next) {
@@ -37,9 +32,7 @@ export class InternController {
     });
     await internDocument.updateOne({ _id: req.params.id });
 
-    return ApiResponse.sendSuccessResponse({}
-      ,res
-    );
+    return ApiResponse.sendSuccessResponse(internDocument ,res)
   }
 
   static async deleteIntern(req, res, next) {
@@ -47,8 +40,6 @@ export class InternController {
 
     await Intern.deleteOne({_id: internId})
     
-    return ApiResponse.sendSuccessResponse({}, 
-      res
-    );
+    return ApiResponse.sendSuccessResponse(internId, res)
   }
 }
