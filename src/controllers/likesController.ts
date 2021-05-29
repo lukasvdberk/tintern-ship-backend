@@ -1,6 +1,5 @@
 import {CreateLikesDTO} from "../dto/likes/createLikeDTO";
 import {Like} from "../models/like.model";
-import {PasswordUtil} from "./utils/passwordUtil";
 import {ApiResponse} from "./utils/apiResponses";
 import {User} from "../models/user.model";
 
@@ -21,14 +20,35 @@ export class LikesController {
 
             const userDocument = new Like({
                 fromUserId: likesUserDTO.fromUser,
-                toUserId: likesUserDTO.fromUser,
+                toUserId: likesUserDTO.toUser,
                 hasLiked: likesUserDTO.hasLiked
             });
+
             await userDocument.save();
 
             return ApiResponse.sendSuccessResponse({
-                message:'Saved'
+                message: 'Saved'
             }, res)
+        } catch (ignored) {
+            return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
+        }
+    }
+
+    static async getLikes(req, res, next) {
+        try {
+            const userId: string = req.params.userId
+
+            // not the same user who wants to request
+            if(userId !== req.user._id) {
+                return ApiResponse.sendErrorResponse(403, 'Not allowed', res)
+            }
+
+            const likesOfUser = await Like.find({
+                toUserId: userId,
+                hasLiked: true
+            })
+
+            return ApiResponse.sendSuccessResponse(likesOfUser, res)
         } catch (ignored) {
             return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
         }
