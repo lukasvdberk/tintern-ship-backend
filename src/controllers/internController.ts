@@ -43,7 +43,9 @@ export class InternController {
   }
 
   static async deleteIntern(req, res, next) {
-    const internId = req.params.id;
+    const userId = req.user._id;
+    const intern = Intern.findOne({userId:userId})
+    const internId = (await intern)._id
 
     await Intern.deleteOne({_id: internId})
     
