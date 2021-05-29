@@ -1,9 +1,7 @@
-export class InternDTO {
+export class CompanyDTO {
   public _id: string;
   public userId: string;
-  public educationId: string;
-  public name: string;
-  public age: string;
+  public name: string
   public description: string;
   public phoneNumber: string;
 }
