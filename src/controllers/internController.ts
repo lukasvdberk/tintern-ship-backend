@@ -4,6 +4,9 @@ import { ApiResponse } from "./utils/apiResponses";
 
 export class InternController {
   static async createIntern(req, res, next) {
+    
+    //TODO Check if user is not already registered as a intern or company
+
     const userId = req.user._id;
     // console.log(userId)
     const intern = req.body as InternDTO;
