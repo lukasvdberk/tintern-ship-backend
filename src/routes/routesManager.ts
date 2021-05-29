@@ -5,11 +5,13 @@ import { internRouter } from "./intern/internRouter";
 import { likesRouter } from "./likes/likesRouter";
 import { matchesRoutes } from "./matches/matchesRoutes";
 import { authRouter } from "./auth/authRouter";
+import { companyRouter } from "./company/companyRouter";
 
 const routesManager = express.Router();
 
 routesManager.use(userRouter);
 routesManager.use(educationRouter);
+routesManager.use(companyRouter);
 routesManager.use(internRouter);
 routesManager.use(likesRouter);
 routesManager.use(matchesRoutes);
