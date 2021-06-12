@@ -67,6 +67,7 @@ export class AuthController {
           existingUser._id,
           user.email
         );
+
         return ApiResponse.sendSuccessResponse(
           {
             token: jwtToken,

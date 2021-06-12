@@ -10,8 +10,12 @@ export class EducationController {
      */
     static async getEducations(req, res, next) {
         // gets all educations
-        const educations = await Education.find({})
+        let educations: any[] = await Education.find({})
 
+        educations = educations.map((education) => { return {
+            id: education._id,
+            name: education.name
+        }})
         return ApiResponse.sendSuccessResponse(educations, res)
     }
 }

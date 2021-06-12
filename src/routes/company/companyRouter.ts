@@ -6,7 +6,7 @@ import { dtoValidationMiddleware } from "../../dto/util/dtoBodyChecker";
 
 const companyRouter = express.Router();
 companyRouter.post(
-  "/companies/user/:userId",
+  "/companies/",
   dtoValidationMiddleware(CreateCompanyDTO),
   AuthorizationMiddleware.isAuthenticated,
   CompanyController.createCompany

@@ -1,5 +1,5 @@
 import { Trim } from "class-sanitizer";
-import { IsString, MaxLength, MinLength } from "class-validator";
+import {IsNumber, IsString, MaxLength, MinLength} from "class-validator";
 
 export class CreateInternDTO {
 
@@ -10,9 +10,7 @@ export class CreateInternDTO {
   @IsString()
   public name?: string;
 
-  @IsString()
-  @MaxLength(3, { message: 'Age shoud be a maximum of 3 characters'})
-  @Trim()
+  @IsNumber()
   public age?: string;
 
   @IsString()
