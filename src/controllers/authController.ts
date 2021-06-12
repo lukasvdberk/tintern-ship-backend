@@ -52,7 +52,6 @@ export class AuthController {
   static async login(req, res, next) {
     const user = req.body as CreateUserDTO;
 
-    // TODO parse to right model or something.
     const existingUser = await User.findOne({
       email: user.email,
     });

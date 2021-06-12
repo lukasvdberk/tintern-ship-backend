@@ -4,7 +4,7 @@
   "description": "Tinder for your next internship backend",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon src/index.ts",
+    "dev": "env-cmd nodemon src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },
@@ -42,8 +42,10 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "dotenv": "^10.0.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "firebase-admin": "^9.9.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.11",
     "morgan": "^1.10.0",
