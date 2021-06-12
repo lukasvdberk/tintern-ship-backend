@@ -6,7 +6,7 @@ import { dtoValidationMiddleware } from "../../dto/util/dtoBodyChecker";
 
 const internRouter = express.Router();
 internRouter.post(
-  "/interns/user/:userId",
+  "/interns/user/",
   dtoValidationMiddleware(CreateInternDTO),
   AuthorizationMiddleware.isAuthenticated,
   InternController.createIntern

@@ -18,8 +18,12 @@ export class CompanyController {
     });
 
     await companyDocument.save();
-  
-    return ApiResponse.sendSuccessResponse(companyDocument, res);
+
+    const companyDto = {
+      id: companyDocument._id,
+      ...company,
+    }
+    return ApiResponse.sendSuccessResponse(companyDto, res);
   }
 
   static async editCompany(req, res, next) {

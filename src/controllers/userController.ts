@@ -24,7 +24,7 @@ export class UserController {
      */
     static async saveAvatar(req, res, next) {
         try {
-            const userId: string = req.params.userId
+            const userId: string = req.user._id
 
             // not the same user who wants to request
             if(userId !== req.user._id) {
