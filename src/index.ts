@@ -6,6 +6,7 @@ import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as fileUpload from "express-fileupload";
 import * as path from "path";
+import {FirebaseNotificationService} from "./services/firebaseNotificationService";
 
 dotenv.config();
 // http request logger

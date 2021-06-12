@@ -6,6 +6,7 @@ import { likesRouter } from "./likes/likesRouter";
 import { matchesRoutes } from "./matches/matchesRoutes";
 import { authRouter } from "./auth/authRouter";
 import { companyRouter } from "./company/companyRouter";
+import {firebaseRouter} from "./firebase/firebaseRouter";
 
 const routesManager = express.Router();
 
@@ -14,6 +15,7 @@ routesManager.use(educationRouter);
 routesManager.use(companyRouter);
 routesManager.use(internRouter);
 routesManager.use(likesRouter);
+routesManager.use(firebaseRouter);
 routesManager.use(matchesRoutes);
 routesManager.use(authRouter);
 

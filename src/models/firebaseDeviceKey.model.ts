@@ -5,6 +5,10 @@ const fireBaseDeviceKeySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
 });
 
 const fireBaseDeviceKey = mongoose.model(
