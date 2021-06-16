@@ -89,4 +89,22 @@ export class CompanyController {
       message: "Project added"
     }, res)
   }
+
+  static async getInternShipProjectOfCompany(req, res, next) {
+    const companyId = req.params.companyId as string
+
+    const internProjects: any[] = await InternProject.find({
+      companyId: companyId
+    })
+
+    const internProjectsParsed = internProjects.map(project => {
+      return {
+        id: project._id,
+        educationId: project.educationId,
+        companyId: project.companyId,
+        description: project.description,
+      }
+    })
+    return ApiResponse.sendSuccessResponse(internProjectsParsed, res)
+  }
 }

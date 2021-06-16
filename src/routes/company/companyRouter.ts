@@ -40,4 +40,10 @@ companyRouter.post(
     CompanyController.addInternShipJobToCompany
 );
 
+companyRouter.get(
+    "/companies/internship-project/:companyId",
+    AuthorizationMiddleware.isAuthenticated,
+    CompanyController.getInternShipProjectOfCompany
+);
+
 export { companyRouter };
