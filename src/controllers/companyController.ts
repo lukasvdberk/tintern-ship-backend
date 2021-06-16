@@ -1,6 +1,8 @@
 import { CompanyDTO } from "../dto/company/companyDTO";
 import { Company } from "../models/company.model";
 import { ApiResponse } from "./utils/apiResponses";
+import {CreateInternProjectDTO} from "../dto/company/createInternProjectDTO";
+import {InternProject} from "../models/internProject.model";
 
 export class CompanyController {
   static async createCompany(req, res, next) {
@@ -72,7 +74,19 @@ export class CompanyController {
     })
   }
 
-  static async addInternShipJob() {
-    
+  static async addInternShipJobToCompany(req, res, next) {
+    const internshipProjectDTO = req.body as CreateInternProjectDTO
+
+    const internProject = new InternProject({
+      educationId: internshipProjectDTO.educationId,
+      companyId: internshipProjectDTO.companyId,
+      description: internshipProjectDTO.description,
+    })
+
+    await internProject.save()
+
+    return ApiResponse.sendSuccessResponse({
+      message: "Project added"
+    }, res)
   }
 }
