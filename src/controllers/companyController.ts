@@ -71,4 +71,8 @@ export class CompanyController {
       }
     })
   }
+
+  static async addInternShipJob() {
+    
+  }
 }
