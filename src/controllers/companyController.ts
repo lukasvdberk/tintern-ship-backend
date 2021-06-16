@@ -3,6 +3,8 @@ import { Company } from "../models/company.model";
 import { ApiResponse } from "./utils/apiResponses";
 import {CreateInternProjectDTO} from "../dto/company/createInternProjectDTO";
 import {InternProject} from "../models/internProject.model";
+import {Education} from "../models/education.model";
+import {User} from "../models/user.model";
 
 export class CompanyController {
   static async createCompany(req, res, next) {
@@ -86,7 +88,10 @@ export class CompanyController {
     await internProject.save()
 
     return ApiResponse.sendSuccessResponse({
-      message: "Project added"
+      id: internProject.id,
+      educationId: internshipProjectDTO.educationId,
+      companyId: internshipProjectDTO.companyId,
+      description: internshipProjectDTO.description,
     }, res)
   }
 
@@ -97,14 +102,32 @@ export class CompanyController {
       companyId: companyId
     })
 
-    const internProjectsParsed = internProjects.map(project => {
-      return {
+    const company: any = await Company.findById(companyId)
+    const user: any = await User.findById(company.userId)
+
+    const internProjectsParsed = [];
+    for (const project of internProjects) {
+      const education: any =  await Education.findById(project.educationId)
+      internProjectsParsed.push({
         id: project._id,
-        educationId: project.educationId,
-        companyId: project.companyId,
+        education: {
+          id: education.id,
+          name: education.name
+        },
+        company: {
+          id: company.id,
+          name: company.name,
+          description: company.description,
+          phoneNumber: company.phoneNumber,
+          user: {
+            id: user.id,
+            email: user.email,
+            avatarUrl: user.avatarUrl,
+          },
+        },
         description: project.description,
-      }
-    })
+      });
+    }
     return ApiResponse.sendSuccessResponse(internProjectsParsed, res)
   }
 }
