@@ -1,11 +1,11 @@
 import * as mongoose from "mongoose";
 
 const matchSchema = new mongoose.Schema({
-  internId: {
+  firstUserId: {
     type: String,
     required: true,
   },
-  companyId: {
+  secondUserId: {
     type: String,
     required: true,
   },
