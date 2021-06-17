@@ -14,34 +14,39 @@ export class MatchController {
   
       const likes = await LikesController.getLikesByUserId(userId, res, next);
 
-      console.log(likes)
-
-      console.log('---------------------------------');
-
       for(let i = 0; i <= likes.length; i++) {
         const likesFromLikedUser = await LikesController.getLikesByUserId(likes[i].toUserId, res, next);
-
         for(let x = 0; x <= likes.length; x++) {
-          if(likesFromLikedUser[x].toUserId == userId) {
-            
-            console.log('Form match')
+          const secondUserLike = likesFromLikedUser[x]
+          if(secondUserLike.toUserId == userId) {
+
+            const userDocument = new Match ({
+              firstUserId: userId,
+              secondUserId: secondUserLike.fromUserId
+            });
+
+            await userDocument.save();
+
+            await LikesController.deleteLike(likes[0]._id)
+            await LikesController.deleteLike(likesFromLikedUser[0]._id)
+
+            return ApiResponse.sendSuccessResponse({
+              message: 'Created match'
+            }, res)
           }
         }
       }
-
-      
     } catch (ignored) {
-      return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
+        return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
+      }
     }
-  }
 
   static async getMatches(req, res, next) {
     try {
       const userId: string = req.params.userId
       
-      const matchesOfUser = await Match.find({
-        toUserId: userId,   //not correct
-        hasMatched: true
+      const matchesOfUser = await Match.find({ 
+        $or: [{firstUserId: userId}, {secondUserId: userId}]
       })
 
       return ApiResponse.sendSuccessResponse(matchesOfUser, res)
