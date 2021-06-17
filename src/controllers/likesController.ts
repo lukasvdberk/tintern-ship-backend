@@ -53,4 +53,24 @@ export class LikesController {
             return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
         }
     }
+
+    static async getLikesByUserId(userId, res, next) {
+        console.log(userId)
+        try {
+            const likesOfUser = await Like.find({
+                fromUserId: userId,
+                hasLiked: true
+            })
+            return likesOfUser
+            return ApiResponse.sendSuccessResponse(likesOfUser, res)
+        } catch (ignored) {
+            return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
+        }
+    }
+
+    static async deleteLike(likeId, res) {
+        await Like.deleteOne({_id: likeId})
+        
+        return ApiResponse.sendSuccessResponse(likeId, res)
+    } 
 }
