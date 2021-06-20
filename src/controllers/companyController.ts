@@ -62,6 +62,16 @@ export class CompanyController {
     return ApiResponse.sendSuccessResponse(companyId, res)
   }
 
+  static async getAllCompanies(req, res, next) {
+    await Company.find().then(company => {
+      if (company) {
+        return ApiResponse.sendSuccessResponse(company, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Company not found', res)
+      }
+    })
+  }
+
   static async getCompany(req, res, next) {
     const userId = req.user._id;
     const company = Company.findOne({userId:userId})
