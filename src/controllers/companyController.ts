@@ -87,6 +87,13 @@ export class CompanyController {
     })
   }
 
+  static async getCompanyById(req, res, next) {
+    const companyId = req.params.companyId;
+    const company = Company.findOne({companyId:companyId})
+
+    return ApiResponse.sendSuccessResponse(company, res)
+  }
+
   static async addInternShipJobToCompany(req, res, next) {
     const internshipProjectDTO = req.body as CreateInternProjectDTO
 
