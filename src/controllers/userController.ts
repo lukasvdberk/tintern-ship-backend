@@ -10,7 +10,11 @@ export class UserController {
      */
     static async getMe(req, res, next) {
         try {
-            return ApiResponse.sendSuccessResponse(req.user, res)
+            const user = {
+                id: req.user._id,
+                email: req.user.email
+            }
+            return ApiResponse.sendSuccessResponse(user, res)
         } catch (ignored) {
             return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
         }
