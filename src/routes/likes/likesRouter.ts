@@ -13,7 +13,7 @@ likesRouter.get(
 likesRouter.post(
   "/likes/",
   AuthorizationMiddleware.isAuthenticated,
-  dtoValidationMiddleware(CreateLikesDTO),
+  // dtoValidationMiddleware(CreateLikesDTO),
   LikesController.saveLike
 );
 
