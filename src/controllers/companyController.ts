@@ -92,7 +92,16 @@ export class CompanyController {
 
     await Company.findById(companyId).then(company => {
       if (company) {
-        return ApiResponse.sendSuccessResponse(company, res)
+
+        const companyDocument = {
+          id: company['_id'],
+          userId: company['userId'],
+          name: company['name'],
+          description: company['description'],
+          phoneNumber: company['phoneNumber']
+        };
+
+        return ApiResponse.sendSuccessResponse(companyDocument, res)
       } else {
         return ApiResponse.sendErrorResponse(403, 'Company not found', res)
       }
