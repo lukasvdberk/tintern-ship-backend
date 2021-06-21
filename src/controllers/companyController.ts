@@ -89,9 +89,14 @@ export class CompanyController {
 
   static async getCompanyById(req, res, next) {
     const companyId = req.params.companyId;
-    const company = Company.findOne({companyId:companyId})
 
-    return ApiResponse.sendSuccessResponse(company, res)
+    await Company.findById(companyId).then(company => {
+      if (company) {
+        return ApiResponse.sendSuccessResponse(company, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Company not found', res)
+      }
+    })
   }
 
   static async addInternShipJobToCompany(req, res, next) {
@@ -156,7 +161,9 @@ export class CompanyController {
       userId: userId
     })
 
-    const educationId = intern[0].educationId;
+    // console.log(intern)
+
+    const educationId = intern[0]['educationId'];
 
     const internProjects: any[] = await InternProject.find({
       educationId: educationId

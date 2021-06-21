@@ -59,7 +59,7 @@ companyRouter.get(
 );
 
 companyRouter.get(
-  "/companies/user/:companyId",
+  "/companies/company/:companyId",
   AuthorizationMiddleware.isAuthenticated,
   CompanyController.getCompanyById
 );
