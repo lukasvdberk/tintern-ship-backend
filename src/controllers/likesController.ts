@@ -14,13 +14,19 @@ export class LikesController {
         try {
             const likesUserDTO: CreateLikesDTO = req.body as CreateLikesDTO
 
-            const bothUsersExists = (await User.find().where('_id').in([likesUserDTO.fromUser, likesUserDTO.toUser]).exec()).length == 2;
+            console.log(likesUserDTO.fromUserId)
+
+            if(await User.findById(likesUserDTO.fromUserId)) {
+                console.log(true)
+            }
+
+            const bothUsersExists = (await User.find().where('_id').in([likesUserDTO.fromUserId, likesUserDTO.toUserId]).exec()).length == 2;
 
             if(!bothUsersExists) return ApiResponse.sendErrorResponse(404, 'One of the users could not be found', res)
 
             const userDocument = new Like({
-                fromUserId: likesUserDTO.fromUser,
-                toUserId: likesUserDTO.toUser,
+                fromUserId: likesUserDTO.fromUserId,
+                toUserId: likesUserDTO.toUserId,
                 hasLiked: likesUserDTO.hasLiked
             });
 

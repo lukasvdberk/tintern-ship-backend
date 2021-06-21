@@ -3,10 +3,10 @@ import {Trim} from "class-sanitizer";
 
 export class CreateLikesDTO{
     @IsString()
-    public fromUser?: string;
+    public fromUserId?: string;
 
     @IsString()
-    public toUser?: string;
+    public toUserId?: string;
 
     @IsBoolean()
     public hasLiked: string
