@@ -52,4 +52,10 @@ companyRouter.get(
     CompanyController.getInternShipProjectOfCompany
 );
 
+companyRouter.get(
+  "/companies/fitting-internship-projects",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getFittingInternshipProjects
+);
+
 export { companyRouter };

@@ -5,6 +5,7 @@ import {CreateInternProjectDTO} from "../dto/company/createInternProjectDTO";
 import {InternProject} from "../models/internProject.model";
 import {Education} from "../models/education.model";
 import {User} from "../models/user.model";
+import { Intern } from "../models/intern.model";
 
 export class CompanyController {
   static async createCompany(req, res, next) {
@@ -139,5 +140,21 @@ export class CompanyController {
       });
     }
     return ApiResponse.sendSuccessResponse(internProjectsParsed, res)
+  }
+
+  static async getFittingInternshipProjects(req, res, next) {
+    const userId: string = req.user._id
+
+    const intern: any = await Intern.find({
+      userId: userId
+    })
+
+    const educationId = intern[0].educationId;
+
+    const internProjects: any[] = await InternProject.find({
+      educationId: educationId
+    })
+
+    return ApiResponse.sendSuccessResponse(internProjects, res)
   }
 }
