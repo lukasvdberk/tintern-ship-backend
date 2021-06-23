@@ -19,4 +19,10 @@ Then you can run the project with.
 yarn run dev
 ```
 
+# Production
+- Run `git pull`
+- Run `yarn install`
 
+- Then `pm2 stop "Tinternship backend"`
+- Then `yarn pm2` to start the production server
+- You can check the logs with pm2 logs
