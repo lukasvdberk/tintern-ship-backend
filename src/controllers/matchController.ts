@@ -8,6 +8,7 @@ import { ApiResponse } from "./utils/apiResponses"
 export class MatchController {
 
   static async checkIfMatchIsAvailable(req, res, next) {
+    
     try {
       const userId = req.user._id;
 
@@ -32,7 +33,7 @@ export class MatchController {
       }, false)
     }
   }
-  
+
   static async formMatch(req, res, next) {
 
     try {
