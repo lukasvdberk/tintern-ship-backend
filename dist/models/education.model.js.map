@@ -1,0 +1,1 @@
+{"version":3,"file":"education.model.js","sourceRoot":"","sources":["../../src/models/education.model.ts"],"names":[],"mappings":";;;AAAA,qCAAqC;AAErC,MAAM,eAAe,GAAG,IAAI,QAAQ,CAAC,MAAM,CAAC;IAC1C,IAAI,EAAE;QACJ,IAAI,EAAE,MAAM;QACZ,QAAQ,EAAE,IAAI;KACf;CACF,CAAC,CAAC;AAEH,MAAM,SAAS,GAAG,QAAQ,CAAC,KAAK,CAAC,WAAW,EAAE,eAAe,CAAC,CAAC;AACtD,8BAAS"}

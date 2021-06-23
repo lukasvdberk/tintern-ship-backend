@@ -1,20 +1,31 @@
-[
-  {
-    "name": "Software engineering"
+{
+  "_id": {
+    "$oid": "60b1fc7f30adfe2426a4b271"
   },
-  {
-    "name": "Psychologie"
+  "name": "Software engineering"
+}{
+  "_id": {
+    "$oid": "60b1fc7f30adfe2426a4b272"
   },
-  {
-    "name": "Sociaal werk"
+  "name": "Psychologie"
+}{
+  "_id": {
+    "$oid": "60b1fc7f30adfe2426a4b273"
   },
-  {
-    "name": "Business"
+  "name": "Sociaal werk"
+}{
+  "_id": {
+    "$oid": "60b1fc7f30adfe2426a4b274"
   },
-  {
-    "name": "Communicatie"
+  "name": "Business"
+}{
+  "_id": {
+    "$oid": "60b1fc7f30adfe2426a4b275"
   },
-  {
-    "name": "Kok"
-  }
-]
+  "name": "Communicatie"
+}{
+  "_id": {
+    "$oid": "60b1fc7f30adfe2426a4b276"
+  },
+  "name": "Kok"
+}
