@@ -35,7 +35,7 @@ export class MatchController {
         }
       }
     } catch (ignored) {
-      return ApiResponse.sendErrorResponse(500, {message: 'Something went worng'}, res)
+      return ApiResponse.sendSuccessResponse(false, res)
     }
   }
 

@@ -32,4 +32,10 @@ internRouter.get(
   InternController.getIntern
 );
 
+internRouter.get(
+  "/interns/fitting-interns/:educationId",
+  AuthorizationMiddleware.isAuthenticated,
+  InternController.getListOfIntersByEducationId
+)
+
 export { internRouter };
