@@ -43,8 +43,6 @@ export class LikesController {
                 secondUserId: likesUserDTO.toUserId || likesUserDTO.fromUserId
             }));
 
-            console.log(alreadyMatched[0])
-
             if(alreadyMatched[0] != null) {
                 return ApiResponse.sendSuccessResponse({
                     message: 'This user already has this match'
