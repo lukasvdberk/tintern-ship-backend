@@ -6,31 +6,38 @@ import { UserController } from "./userController"
 import { ApiResponse } from "./utils/apiResponses"
 
 export class MatchController {
-
   static async checkIfMatchIsAvailable(req, res, next) {
     
     try {
+
       const userId = req.user._id;
 
       const likes = await LikesController.getLikesByUserId(userId, res, next);
 
       for(let i = 0; i <= likes.length; i++) {
-        const likesFromLikedUser = await LikesController.getLikesByUserId(likes[i].toUserId, res, next);
+        const likesFromSecondUser = await LikesController.getLikesByUserId(likes[i].toUserId, res, next);
 
-        for(let x = 0; x <= likes.length; x++) {
-          const secondUserLike = likesFromLikedUser[x]
+        if(likesFromSecondUser[0] == undefined) {
+          return ApiResponse.sendSuccessResponse({
+            message: 'Match is not available'
+          }, res)
+        } 
+        
+        else {
 
-          if(secondUserLike.toUserId == userId) {
-            return ApiResponse.sendSuccessResponse({
-              message: 'Match can be created'
-            }, true)
+          for(let x = 0; x <= likesFromSecondUser.length; x++) {
+            const secondUserLike = likesFromSecondUser[x]
+  
+            if(secondUserLike.toUserId == userId) {
+              return ApiResponse.sendSuccessResponse({
+                message: 'Match can be created'
+              }, res)
+            }
           }
         }
       }
     } catch (ignored) {
-      return ApiResponse.sendSuccessResponse({
-        message: 'Match can not be created'
-      }, false)
+      return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
     }
   }
 
