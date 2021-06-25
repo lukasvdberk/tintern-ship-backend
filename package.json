@@ -4,7 +4,7 @@
   "description": "Tinder for your next internship backend",
   "scripts": {
     "build": "tsc",
-    "dev": "env-cmd nodemon src/index.ts",
+    "dev": "env-cmd nodemon --ignore api-spec-3.json src/index.ts",
     "pm2": "tsc && pm2 start pm2.config.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
@@ -46,6 +46,7 @@
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
+    "express-oas-generator": "^1.0.39",
     "firebase-admin": "^9.9.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.11",

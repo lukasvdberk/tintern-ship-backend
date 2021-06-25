@@ -6,13 +6,17 @@ import * as bodyParser from "body-parser";
 import * as morgan from "morgan";
 import * as fileUpload from "express-fileupload";
 import * as path from "path";
-import {FirebaseNotificationService} from "./services/firebaseNotificationService";
+import * as expressOasGenerator from 'express-oas-generator';
+import * as _ from 'lodash'
+import {SPEC_OUTPUT_FILE_BEHAVIOR} from "express-oas-generator";
 
 dotenv.config();
 // http request logger
 morgan("tiny");
 
+const modelNames = mongoose.modelNames();
 const app = express();
+
 
 const port = process.env.PORT || 8080;
 
@@ -27,7 +31,16 @@ mongoose.connect(
     console.log("connected to database!");
   }
 );
-
+// generate swagger documentation
+expressOasGenerator.handleResponses(app, {
+    specOutputPath: './api-spec-3.json',
+    mongooseModels: modelNames,
+    alwaysServeDocs: true,
+    specOutputFileBehavior: SPEC_OUTPUT_FILE_BEHAVIOR.PRESERVE,
+    swaggerDocumentOptions: {
+        customCss: '.swagger-ui { color: #42347A }'
+    },
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/json" }));
@@ -52,6 +65,9 @@ app.use((req, res, next) => {
   next();
 });
 
+expressOasGenerator.handleRequests();
 app.use("", routesManager);
 
-app.listen(port);
+app.listen(port, () => {
+    console.log(`Server started. Checkout docs http://localhost:${port}/api-docs`)
+});
