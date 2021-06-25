@@ -75,6 +75,7 @@ export class CompanyController {
 
   static async getCompany(req, res, next) {
     const userId = req.user._id;
+    
     const company = Company.findOne({userId:userId})
     const companyId = (await company)._id
 
@@ -191,7 +192,7 @@ export class CompanyController {
     const companyProjects: any[] = await InternProject.find({
       companyId: companyId
     })
-    
+
     return ApiResponse.sendSuccessResponse(companyProjects, res)
   }
 }
