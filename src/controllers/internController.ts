@@ -85,7 +85,7 @@ export class InternController {
   }
 
   static async getListOfIntersByEducationId(req, res, next) {
-    const educationId = req.params.companyId;
+    const educationId = req.params.educationId;
 
     const interns: any[] = await Intern.find({
       educationId: educationId
