@@ -4,7 +4,7 @@
   "description": "Tinder for your next internship backend",
   "scripts": {
     "build": "tsc",
-    "dev": "env-cmd nodemon src/index.ts",
+    "dev": "env-cmd nodemon --ignore *.json src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix"
   },
