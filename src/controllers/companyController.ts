@@ -170,8 +170,6 @@ export class CompanyController {
       userId: userId
     })
 
-    // console.log(intern)
-
     const educationId = intern[0]['educationId'];
 
     const internProjects: any[] = await InternProject.find({
@@ -179,5 +177,20 @@ export class CompanyController {
     })
 
     return ApiResponse.sendSuccessResponse(internProjects, res)
+  }
+
+  static async getProjectBelongingToCompany(req, res, next) {
+    const userId: string = req.user._id
+
+    const company: any = await Company.find({
+      userId: userId
+    });
+
+    const companyId = company._id;
+
+    const companyProjects: any[] = await InternProject.find({
+      companyId: companyId
+    })
+    return ApiResponse.sendSuccessResponse(companyProjects, res)
   }
 }

@@ -64,4 +64,10 @@ companyRouter.get(
   CompanyController.getCompanyById
 );
 
+companyRouter.get(
+  "/companies/projects",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getProjectBelongingToCompany
+)
+
 export { companyRouter };
