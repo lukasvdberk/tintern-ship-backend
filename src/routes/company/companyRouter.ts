@@ -33,6 +33,12 @@ companyRouter.get(
   CompanyController.getCompany
 );
 
+companyRouter.get(
+  "/companies/",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getAllCompanies
+);
+
 companyRouter.post(
     "/companies/internship-project",
     dtoValidationMiddleware(CreateInternProjectDTO),
@@ -44,6 +50,18 @@ companyRouter.get(
     "/companies/internship-project/:companyId",
     AuthorizationMiddleware.isAuthenticated,
     CompanyController.getInternShipProjectOfCompany
+);
+
+companyRouter.get(
+  "/companies/fitting-internship-projects",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getFittingInternshipProjects
+);
+
+companyRouter.get(
+  "/companies/company/:companyId",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getCompanyById
 );
 
 export { companyRouter };

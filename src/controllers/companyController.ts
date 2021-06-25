@@ -5,6 +5,7 @@ import {CreateInternProjectDTO} from "../dto/company/createInternProjectDTO";
 import {InternProject} from "../models/internProject.model";
 import {Education} from "../models/education.model";
 import {User} from "../models/user.model";
+import { Intern } from "../models/intern.model";
 
 export class CompanyController {
   static async createCompany(req, res, next) {
@@ -62,6 +63,16 @@ export class CompanyController {
     return ApiResponse.sendSuccessResponse(companyId, res)
   }
 
+  static async getAllCompanies(req, res, next) {
+    await Company.find().then(company => {
+      if (company) {
+        return ApiResponse.sendSuccessResponse(company, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Company not found', res)
+      }
+    })
+  }
+
   static async getCompany(req, res, next) {
     const userId = req.user._id;
     const company = Company.findOne({userId:userId})
@@ -70,6 +81,27 @@ export class CompanyController {
     await Company.findById(companyId).then(company => {
       if (company) {
         return ApiResponse.sendSuccessResponse(company, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Company not found', res)
+      }
+    })
+  }
+
+  static async getCompanyById(req, res, next) {
+    const companyId = req.params.companyId;
+
+    await Company.findById(companyId).then(company => {
+      if (company) {
+
+        const companyDocument = {
+          id: company['_id'],
+          userId: company['userId'],
+          name: company['name'],
+          description: company['description'],
+          phoneNumber: company['phoneNumber']
+        };
+
+        return ApiResponse.sendSuccessResponse(companyDocument, res)
       } else {
         return ApiResponse.sendErrorResponse(403, 'Company not found', res)
       }
@@ -129,5 +161,23 @@ export class CompanyController {
       });
     }
     return ApiResponse.sendSuccessResponse(internProjectsParsed, res)
+  }
+
+  static async getFittingInternshipProjects(req, res, next) {
+    const userId: string = req.user._id
+
+    const intern: any = await Intern.find({
+      userId: userId
+    })
+
+    // console.log(intern)
+
+    const educationId = intern[0]['educationId'];
+
+    const internProjects: any[] = await InternProject.find({
+      educationId: educationId
+    })
+
+    return ApiResponse.sendSuccessResponse(internProjects, res)
   }
 }

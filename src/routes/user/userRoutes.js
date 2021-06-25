@@ -1,0 +1,10 @@
+"use strict";
+exports.__esModule = true;
+exports.userRouter = void 0;
+var express = require("express");
+var authorization_middleware_1 = require("../../middleware/authorization.middleware");
+var userController_1 = require("../../controllers/userController");
+var userRouter = express.Router();
+exports.userRouter = userRouter;
+userRouter.get("/users/me", authorization_middleware_1.AuthorizationMiddleware.isAuthenticated, userController_1.UserController.getMe);
+userRouter.post("/users/avatar", authorization_middleware_1.AuthorizationMiddleware.isAuthenticated, userController_1.UserController.saveAvatar);

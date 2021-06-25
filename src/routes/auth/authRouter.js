@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+exports.authRouter = void 0;
+var express = require("express");
+var authController_1 = require("../../controllers/authController");
+var dtoBodyChecker_1 = require("../../dto/util/dtoBodyChecker");
+var createUserDTO_1 = require("../../dto/user/createUserDTO");
+var authRouter = express.Router();
+exports.authRouter = authRouter;
+authRouter.post("/auth/login", dtoBodyChecker_1.dtoValidationMiddleware(createUserDTO_1.CreateUserDTO), authController_1.AuthController.login);
+authRouter.post("/auth/register", dtoBodyChecker_1.dtoValidationMiddleware(createUserDTO_1.CreateUserDTO), authController_1.AuthController.register);
