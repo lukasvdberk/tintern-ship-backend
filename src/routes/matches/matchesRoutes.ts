@@ -15,4 +15,10 @@ const matchesRoutes = express.Router();
     MatchController.formMatch
   );
 
+  matchesRoutes.get(
+    "/matches/",
+    AuthorizationMiddleware.isAuthenticated,
+    MatchController.checkIfMatchIsAvailable
+  )
+
 export { matchesRoutes };

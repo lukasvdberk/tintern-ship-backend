@@ -6,6 +6,39 @@ import { UserController } from "./userController"
 import { ApiResponse } from "./utils/apiResponses"
 
 export class MatchController {
+  static async checkIfMatchIsAvailable(req, res, next) {
+    
+    try {
+
+      const userId = req.user._id;
+
+      const likes = await LikesController.getLikesByUserId(userId, res, next);
+
+      for(let i = 0; i <= likes.length; i++) {
+        const likesFromSecondUser = await LikesController.getLikesByUserId(likes[i].toUserId, res, next);
+
+        if(likesFromSecondUser[0] == undefined) {
+          return ApiResponse.sendSuccessResponse(
+            false, res)
+        } 
+        
+        else {
+
+          for(let x = 0; x <= likesFromSecondUser.length; x++) {
+            const secondUserLike = likesFromSecondUser[x]
+  
+            if(secondUserLike.toUserId == userId) {
+              return ApiResponse.sendSuccessResponse(
+                true, res)
+            }
+          }
+        }
+      }
+    } catch (ignored) {
+      return ApiResponse.sendErrorResponse(500, {message: 'Something went worng'}, res)
+    }
+  }
+
   static async formMatch(req, res, next) {
 
     try {
@@ -16,8 +49,10 @@ export class MatchController {
 
       for(let i = 0; i <= likes.length; i++) {
         const likesFromLikedUser = await LikesController.getLikesByUserId(likes[i].toUserId, res, next);
+      
         for(let x = 0; x <= likes.length; x++) {
           const secondUserLike = likesFromLikedUser[x]
+
           if(secondUserLike.toUserId == userId) {
 
             const userDocument = new Match ({
