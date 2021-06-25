@@ -186,11 +186,12 @@ export class CompanyController {
       userId: userId
     });
 
-    const companyId = company._id;
+    const companyId = company[0]._id;
 
     const companyProjects: any[] = await InternProject.find({
       companyId: companyId
     })
+    
     return ApiResponse.sendSuccessResponse(companyProjects, res)
   }
 }
