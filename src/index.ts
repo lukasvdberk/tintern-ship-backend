@@ -69,5 +69,5 @@ expressOasGenerator.handleRequests();
 app.use("", routesManager);
 
 app.listen(port, () => {
-    console.log('Server started')
+    console.log(`Server started. Checkout docs http://localhost:${port}/api-docs`)
 });
