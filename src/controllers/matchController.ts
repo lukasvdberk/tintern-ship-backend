@@ -18,9 +18,8 @@ export class MatchController {
         const likesFromSecondUser = await LikesController.getLikesByUserId(likes[i].toUserId, res, next);
 
         if(likesFromSecondUser[0] == undefined) {
-          return ApiResponse.sendSuccessResponse({
-            message: 'Match is not available'
-          }, res)
+          return ApiResponse.sendSuccessResponse(
+            false, res)
         } 
         
         else {
@@ -29,15 +28,14 @@ export class MatchController {
             const secondUserLike = likesFromSecondUser[x]
   
             if(secondUserLike.toUserId == userId) {
-              return ApiResponse.sendSuccessResponse({
-                message: 'Match can be created'
-              }, res)
+              return ApiResponse.sendSuccessResponse(
+                true, res)
             }
           }
         }
       }
     } catch (ignored) {
-      return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
+      return ApiResponse.sendErrorResponse(500, {message: 'Something went worng'}, res)
     }
   }
 

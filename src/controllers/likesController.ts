@@ -2,6 +2,7 @@ import {CreateLikesDTO} from "../dto/likes/createLikeDTO";
 import {Like} from "../models/like.model";
 import {ApiResponse} from "./utils/apiResponses";
 import {User} from "../models/user.model";
+import { Match } from "../models/match.model";
 
 export class LikesController {
     /**
@@ -29,8 +30,22 @@ export class LikesController {
                 toUserId: likesUserDTO.toUserId,
                 hasLiked: likesUserDTO.hasLiked
             }));
+            
 
             if(alreadyLiked[0] != null) {
+                return ApiResponse.sendSuccessResponse({
+                    message: 'This user already has this like'
+                }, res)
+            }
+
+            const alreadyMatched = (await Match.find({
+                firstUserId: likesUserDTO.fromUserId || likesUserDTO.toUserId,
+                secondUserId: likesUserDTO.toUserId || likesUserDTO.fromUserId
+            }));
+
+            console.log(alreadyMatched[0])
+
+            if(alreadyMatched[0] != null) {
                 return ApiResponse.sendSuccessResponse({
                     message: 'This user already has this match'
                 }, res)
