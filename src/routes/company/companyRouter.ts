@@ -65,6 +65,12 @@ companyRouter.get(
 );
 
 companyRouter.get(
+  "/companies/userId/:userId",
+  AuthorizationMiddleware.isAuthenticated,
+  CompanyController.getCompanyByUserId
+);
+
+companyRouter.get(
   "/companies/projects",
   AuthorizationMiddleware.isAuthenticated,
   CompanyController.getProjectBelongingToCompany
