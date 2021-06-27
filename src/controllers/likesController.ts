@@ -62,7 +62,7 @@ export class LikesController {
     static async getLikes(req, res, next) {
         try {
             const userId: string = req.params.userId
-
+            
             // not the same user who wants to request
             if(userId !== req.user._id) {
                 return ApiResponse.sendErrorResponse(403, 'Not allowed', res)

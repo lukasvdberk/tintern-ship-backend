@@ -88,6 +88,30 @@ export class CompanyController {
     })
   }
 
+  
+  static async getCompanyByUserId(req, res, next) {
+    const userId = req.params.userId;
+    
+    const company = Company.findOne({userId:userId})
+    const companyId = (await company)._id
+    await Company.findById(companyId).then(company => {
+      if (company) {
+
+        const companyDocument = {
+          id: company['_id'],
+          userId: company['userId'],
+          name: company['name'],
+          description: company['description'],
+          phoneNumber: company['phoneNumber']
+        };
+
+        return ApiResponse.sendSuccessResponse(companyDocument, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Company not found', res)
+      }
+    })
+  }
+
   static async getCompanyById(req, res, next) {
     const companyId = req.params.companyId;
 

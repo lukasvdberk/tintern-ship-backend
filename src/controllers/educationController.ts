@@ -18,4 +18,12 @@ export class EducationController {
         }})
         return ApiResponse.sendSuccessResponse(educations, res)
     }
+
+    static async getEducationById(req, res, next) {
+
+        const educationId = req.params.educationId;
+        let education: any = await Education.findById(educationId)
+
+        return ApiResponse.sendSuccessResponse(education, res)
+    }
 }
