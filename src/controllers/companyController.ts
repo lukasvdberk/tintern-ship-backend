@@ -91,10 +91,6 @@ export class CompanyController {
   
   static async getCompanyByUserId(req, res, next) {
     const userId = req.params.userId;
-
-    console.log('test')
-
-    console.log(userId);
     
     const company = Company.findOne({userId:userId})
     const companyId = (await company)._id
