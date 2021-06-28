@@ -32,17 +32,17 @@ mongoose.connect(
   }
 );
 
-// generate swagger documentation
+process.env.NODE_ENV = "development"
 expressOasGenerator.handleResponses(app, {
     specOutputPath: './api-spec-3.json',
     mongooseModels: modelNames,
     alwaysServeDocs: true,
-    ignoredNodeEnvironments: [],
     swaggerDocumentOptions: {
         customCss: '.swagger-ui { color: #42347A }'
     },
     specOutputFileBehavior: SPEC_OUTPUT_FILE_BEHAVIOR.PRESERVE,
 });
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/json" }));
@@ -67,8 +67,8 @@ app.use((req, res, next) => {
   next();
 });
 
-expressOasGenerator.handleRequests();
 app.use("", routesManager);
+expressOasGenerator.handleRequests();
 
 app.listen(port, () => {
     console.log(`Server started. Checkout docs http://localhost:${port}/api-docs`)
