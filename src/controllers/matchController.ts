@@ -84,8 +84,6 @@ export class MatchController {
         $or: [{firstUserId: userId}, {secondUserId: userId}]
       })
 
-      console.log(matchesOfUser)
-
       return ApiResponse.sendSuccessResponse(matchesOfUser, res)
     } catch (ignored) {
       return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
