@@ -38,4 +38,10 @@ internRouter.get(
   InternController.getListOfIntersByEducationId
 )
 
+internRouter.get(
+  "/interns/likedUser/:userId",
+  AuthorizationMiddleware.isAuthenticated,
+  InternController.getInternByUserId
+)
+
 export { internRouter };

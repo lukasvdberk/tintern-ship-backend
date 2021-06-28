@@ -93,4 +93,28 @@ export class InternController {
 
     return ApiResponse.sendSuccessResponse(interns, res)
   }
+
+  static async getInternByUserId(req, res, next) {
+    const userId = req.params.userId;
+    
+    const intern = Intern.findOne({userId:userId})
+    const internId = (await intern)._id
+    await Intern.findById(internId).then(intern => {
+      if (intern) {
+
+        const internDocument = {
+          id: intern['_id'],
+          userId: intern['userId'],
+          educationId: intern['educationId'],
+          name: intern['name'],
+          description: intern['description'],
+          phoneNumber: intern['phoneNumber']
+        };
+
+        return ApiResponse.sendSuccessResponse(internDocument, res)
+      } else {
+        return ApiResponse.sendErrorResponse(403, 'Intern not found', res)
+      }
+    })
+  }
 }
