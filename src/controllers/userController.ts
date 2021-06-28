@@ -1,5 +1,7 @@
 import {ApiResponse} from "./utils/apiResponses";
 import {User} from "../models/user.model";
+import {Intern} from "../models/intern.model";
+import {Company} from "../models/company.model";
 
 export class UserController {
     /**
@@ -10,10 +12,23 @@ export class UserController {
      */
     static async getMe(req, res, next) {
         try {
+            const isCompany = (await Company.find({
+                userId: req.user._id
+            })).length > 0
+
+            const isIntern = (await Intern.find({
+                userId: req.user._id
+            })).length > 0
+
+
             const user = {
                 id: req.user._id,
-                email: req.user.email
+                email: req.user.email,
+                avatarUrl: await UserController.getAvatarUrlFromUser(req.user._id as string),
+                isIntern,
+                isCompany
             }
+
             return ApiResponse.sendSuccessResponse(user, res)
         } catch (ignored) {
             return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
@@ -62,5 +77,14 @@ export class UserController {
         } catch (ignored) {
             return ApiResponse.sendErrorResponse(500, 'Internal server error', res)
         }
+    }
+
+    static async getAvatarUrlFromUser(userId: string) {
+        const userFromDb: any = await User.findOne({ _id: userId })
+
+        const avatarUrl = userFromDb.avatarUrl ? userFromDb.avatarUrl.replace("public/", "")
+            : "https://file.coffee/u/1woImEMROR3EAC.png"
+
+        return avatarUrl
     }
 }

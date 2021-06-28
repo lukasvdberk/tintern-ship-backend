@@ -6,6 +6,7 @@ import {InternProject} from "../models/internProject.model";
 import {Education} from "../models/education.model";
 import {User} from "../models/user.model";
 import { Intern } from "../models/intern.model";
+import {UserController} from "./userController";
 
 export class CompanyController {
   static async createCompany(req, res, next) {
@@ -94,13 +95,13 @@ export class CompanyController {
     
     const company = Company.findOne({userId:userId})
     const companyId = (await company)._id
-    await Company.findById(companyId).then(company => {
+    Company.findById(companyId).then(async (company) => {
       if (company) {
-
         const companyDocument = {
           id: company['_id'],
           userId: company['userId'],
           name: company['name'],
+          avatarUrl: await UserController.getAvatarUrlFromUser(req.user._id as string),
           description: company['description'],
           phoneNumber: company['phoneNumber']
         };
