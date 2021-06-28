@@ -107,6 +107,7 @@ export class InternController {
           userId: intern['userId'],
           educationId: intern['educationId'],
           name: intern['name'],
+          age: intern['age'],
           description: intern['description'],
           phoneNumber: intern['phoneNumber']
         };
