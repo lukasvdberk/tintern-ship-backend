@@ -37,11 +37,11 @@ expressOasGenerator.handleResponses(app, {
     specOutputPath: './api-spec-3.json',
     mongooseModels: modelNames,
     alwaysServeDocs: true,
-    specOutputFileBehavior: SPEC_OUTPUT_FILE_BEHAVIOR.PRESERVE,
-    ignoredNodeEnvironments: ['production'],
+    ignoredNodeEnvironments: [],
     swaggerDocumentOptions: {
         customCss: '.swagger-ui { color: #42347A }'
     },
+    specOutputFileBehavior: SPEC_OUTPUT_FILE_BEHAVIOR.PRESERVE,
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
