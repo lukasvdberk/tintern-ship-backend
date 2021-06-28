@@ -111,8 +111,6 @@ export class InternController {
           phoneNumber: intern['phoneNumber']
         };
 
-        console.log(internDocument)
-
         return ApiResponse.sendSuccessResponse(internDocument, res)
       } else {
         return ApiResponse.sendErrorResponse(403, 'Intern not found', res)
