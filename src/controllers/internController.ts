@@ -1,6 +1,7 @@
 import { InternDTO } from "../dto/intern/internDTO";
 import { Intern } from "../models/intern.model";
 import { ApiResponse } from "./utils/apiResponses";
+import {UserController} from "./userController";
 
 export class InternController {
   static async createIntern(req, res, next) {
@@ -97,15 +98,16 @@ export class InternController {
   static async getInternByUserId(req, res, next) {
     const userId = req.params.userId;
     
-    const intern = Intern.findOne({userId:userId})
-    const internId = (await intern)._id
-    await Intern.findById(internId).then(intern => {
+    const intern = await Intern.findOne({userId:userId})
+    const internId = intern._id
+    Intern.findById(internId).then( async(intern) => {
       if (intern) {
 
         const internDocument = {
           id: intern['_id'],
           userId: intern['userId'],
           educationId: intern['educationId'],
+          avatarUrl: await UserController.getAvatarUrlFromUser(req.user._id as string),
           name: intern['name'],
           age: intern['age'],
           description: intern['description'],
