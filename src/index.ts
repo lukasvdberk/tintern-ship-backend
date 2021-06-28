@@ -31,6 +31,19 @@ mongoose.connect(
     console.log("connected to database!");
   }
 );
+
+expressOasGenerator.init(
+    app,
+    function(spec) { return spec; },
+    './api-spec-3.json',
+    60 * 1000,
+    'api-docs',
+    modelNames,
+    ['IKPMD-api'],
+    ['production'],
+    true,
+    SPEC_OUTPUT_FILE_BEHAVIOR.RECREATE
+)
 // generate swagger documentation
 expressOasGenerator.handleResponses(app, {
     specOutputPath: './api-spec-3.json',
